@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:creeply_shop/product_list.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -8,18 +9,15 @@ class HomePage extends StatelessWidget {
     final theme = Theme.of(context);
     double paddingAll = 10;
     return Scaffold(
-      bottomNavigationBar: NavigationBar(
-          destinations: const <Widget>[
-            NavigationDestination(
-              icon: Icon(Icons.shop),
-              label: 'Product'
-              ),
-            NavigationDestination(
-              icon: Icon(Icons.person),
-              label: 'Account',
-              )
-          ],
-        ),
+      // bottomNavigationBar: NavigationBar(
+      //   destinations: const <Widget>[
+      //     NavigationDestination(icon: Icon(Icons.shop), label: 'Product'),
+      //     NavigationDestination(
+      //       icon: Icon(Icons.person),
+      //       label: 'Account',
+      //     )
+      //   ],
+      // ),
       appBar: AppBar(
         title: Text(
           'Creeply Shop',
@@ -52,27 +50,42 @@ class HomePage extends StatelessWidget {
         ),
       ),
       body: GridView.count(
-        crossAxisCount: 2,
-        children: List.generate(100, (index) {
-          return Expanded(child: Center(
-              child: Container(
-                  padding:  EdgeInsets.all(paddingAll),
-                  margin:  EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(width: 1),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget> [
-                        Expanded(child: Container(child: Image.network(productList[0].getPath()),)),
-                        Expanded(child: Container(child: Text('Card $index'),))
-                        
-                        ],
-                    ),
-                  ))));
+        crossAxisCount: 3,
+        children: List.generate(productList.length, (index) {
+          return Expanded(
+              child: Center(
+                  child: Container(
+                      padding: EdgeInsets.all(paddingAll),
+                      margin: EdgeInsets.all(1),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(width: 1),
+                      ),
+                      child: Padding(
+                        padding:
+                            const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 12),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            Expanded(
+                                child: Container(
+                              child: Image.network(productList[index].getPath()),
+                            )),
+                            Expanded(
+                                child: Container(
+                              child: Text(productList[index].getName(),
+                              style: theme.textTheme.labelLarge),
+                            )),
+                            Expanded(
+                              child: Container(
+                                child: Text(
+                                    productList[index].getPrice().toString(),
+                                    style: theme.textTheme.labelLarge,),
+                              ),
+                            )
+                          ],
+                        ),
+                      ))));
         }),
       ),
     );
